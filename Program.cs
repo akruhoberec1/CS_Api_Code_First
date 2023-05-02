@@ -38,5 +38,27 @@ app.MapPost("/vmakes", async (DataContext context, VehicleMake make) =>
     return Results.Ok(await GetAllMakes(context));
 });
 
+app.MapPut("/vmakes/{id}", async (DataContext context, VehicleMake make, int id) =>
+{
+    var dbMake = await context.VehicleMakes.FindAsync(id);
+    if (dbMake == null) return Results.NotFound("No make found");
+
+    dbMake.Name = make.Name;
+    dbMake.Abrv = make.Abrv;
+    await context.SaveChangesAsync();
+
+    return Results.Ok(await GetAllMakes(context));
+});
+
+app.MapDelete("/vmakes/{id}", async (DataContext context, int id) =>
+{
+    var dbMake = await context.VehicleMakes.FindAsync(id);
+    if (dbMake == null) return Results.NotFound("Koja je to marka");
+
+    context.VehicleMakes.Remove(dbMake);
+    await context.SaveChangesAsync();
+
+        return Results.Ok(await GetAllMakes(context));
+});
 
 app.Run();

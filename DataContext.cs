@@ -8,5 +8,9 @@ namespace API_CSharp
         { 
 
         }
+
+        public DbSet<VehicleMake> VehicleMakes => Set<VehicleMake>();
+
+
     }
 }

@@ -20,6 +20,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+async Task<List<VehicleMake>> GetAllMakes(DataContext context)  =>
+    await context.VehicleMakes.ToListAsync();   
+
+app.MapGet("/vmakes", async (DataContext context) =>
+    await context.VehicleMakes.ToListAsync());
+
+app.MapGet("/vmakes/{id}", async (DataContext context, int id) =>
+    await context.VehicleMakes.FindAsync(id) is VehicleMake make ? 
+    Results.Ok(make) :
+    Results.NotFound("Sorry, no make found."));
+
+app.MapPost("/vmakes", async (DataContext context, VehicleMake make) =>
+{
+    context.VehicleMakes.Add(make);
+    await context.SaveChangesAsync();
+    return Results.Ok(await GetAllMakes(context));
+});
 
 
 app.Run();

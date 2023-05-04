@@ -1,4 +1,5 @@
 ﻿global using Microsoft.EntityFrameworkCore;
+using API_CSharp.Models;
 
 namespace API_CSharp
 {

@@ -1,4 +1,5 @@
 using API_CSharp;
+using API_CSharp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+/*
 async Task<List<VehicleMake>> GetAllMakes(DataContext context)  =>
     await context.VehicleMakes.ToListAsync();   
 
@@ -60,5 +61,5 @@ app.MapDelete("/vmakes/{id}", async (DataContext context, int id) =>
 
         return Results.Ok(await GetAllMakes(context));
 });
-
+*/
 app.Run();
